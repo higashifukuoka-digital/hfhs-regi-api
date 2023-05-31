@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS `history` (
+  `payment_id` VARCHAR(16) NOT NULL,
+  `paid_class` VARCHAR(16) NOT NULL,
+  `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `total` BIGINT NOT NULL,
+  `change` BIGINT NOT NULL,
+  `product` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`payment_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
