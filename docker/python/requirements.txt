@@ -17,3 +17,4 @@ sqlmodel
 aiomysql
 pytz
 uvicorn[standard]
+python-jose
