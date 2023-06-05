@@ -27,11 +27,11 @@ app.include_router(user.router, tags=["ユーザー系"])
 app.include_router(history.router, tags=["決済履歴系"])
 
 
-@app.get("/")
+@app.get("/", tags=["ステータス"])
 async def index():
     return {"status": "200 OK"}
 
-@app.get("/auth")
+@app.get("/auth", tags=["認証系"])
 async def get_islogin(
     authorization: HTTPAuthorizationCredentials = Depends(auth.get_current_user),
 ):
