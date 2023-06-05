@@ -10,11 +10,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 import cruds.user as user_crud
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import auth
+import schemas
 
 router = APIRouter()
 
 
-@router.get("/user")
+@router.get("/user", response_model=List[schemas.User])
 async def get_userinfo(
     db: AsyncSession = Depends(get_db),
     authorization: HTTPAuthorizationCredentials = Depends(auth.get_current_user),

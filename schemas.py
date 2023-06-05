@@ -29,8 +29,8 @@ class HistoryAdd(BaseModel):
 
 
 class User(BaseModel):
-    user_role: str = (
-        Field(False, description="管理者かどうか(管理者でない場合はNull)", example=False),
+    user_role: str = Field(
+        "", description="管理者かどうか(管理者でない場合はNull)", example="Admin"
     )
     user_mail: str = Field(
         None, description="生徒のメールアドレス", example="user@higashifukuoka.net"
