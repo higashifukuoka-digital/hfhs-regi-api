@@ -1,4 +1,4 @@
-# hfhs-registar-api
+# hfhs-register-api
 
 ## 起動
 開発環境:
