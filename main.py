@@ -13,7 +13,11 @@ key_scheme = HTTPBearer(
 
 app = FastAPI()
 
-origins = ["*"]
+origins = [
+    "https://register.hfhs-digital.app",
+    "http://localhost",
+    "http://localhost:3000",
+]
 
 app.add_middleware(
     CORSMiddleware,
