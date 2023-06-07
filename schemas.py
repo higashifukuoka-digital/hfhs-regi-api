@@ -1,6 +1,7 @@
 import random
 import time
 from pydantic import BaseModel, Field
+from datetime import datetime
 
 
 class History(BaseModel):
@@ -13,6 +14,18 @@ class History(BaseModel):
     total: int = Field(None, description="購入金額", example=200)
     change: int = Field(None, description="お釣り", example=100)
     product: str = Field(None, description="購入商品", example="かき氷, 練乳")
+
+    class Config:
+        orm_mode = True
+
+
+class Response_History(BaseModel):
+    payment_id: str
+    paid_class: str
+    timestamp: datetime
+    total: int
+    change: int
+    product: str
 
     class Config:
         orm_mode = True

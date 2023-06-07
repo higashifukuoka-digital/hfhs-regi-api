@@ -18,7 +18,7 @@ def generate_payment_id(length=16):
     return "".join(random.choices(chars, k=length))
 
 
-@router.get("/history/{class_name}", response_model=List[schemas.History])
+@router.get("/history/{class_name}", response_model=List[schemas.Response_History])
 async def get_all_history(
     class_name: str,
     db: AsyncSession = Depends(get_db),
