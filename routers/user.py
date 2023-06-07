@@ -15,7 +15,7 @@ import schemas
 router = APIRouter()
 
 
-@router.get("/user", response_model=List[schemas.User])
+@router.get("/user", response_model=schemas.Response_User)
 async def get_userinfo(
     db: AsyncSession = Depends(get_db),
     authorization: HTTPAuthorizationCredentials = Depends(auth.get_current_user),
