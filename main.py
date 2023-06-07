@@ -14,7 +14,7 @@ key_scheme = HTTPBearer(
 app = FastAPI()
 
 origins = [
-    "https://register.hfhs-digital.app",
+    "https://regi.hfhs-digital.app",
     "http://localhost",
     "http://localhost:3000",
 ]

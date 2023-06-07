@@ -14,6 +14,9 @@ class History(BaseModel):
     change: int = Field(None, description="お釣り", example=100)
     product: str = Field(None, description="購入商品", example="かき氷, 練乳")
 
+    class Config:
+        orm_mode = True
+
 
 class HistoryAdd(BaseModel):
     class_name: str = Field(None, description="クラス名", example="2年1組")
@@ -30,6 +33,7 @@ class Response_User(BaseModel):
     user_name: str
     user_class: str
     user_role: str
+
     class Config:
         orm_mode = True
 
