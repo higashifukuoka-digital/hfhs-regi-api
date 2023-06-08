@@ -1,10 +1,8 @@
-import random
-import string
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from db import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
-import cruds.history as history_crud
+import cruds.setting as setting_crud
 import cruds.user as user_crud
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import auth
@@ -13,13 +11,8 @@ import schemas
 router = APIRouter()
 
 
-def generate_payment_id(length=16):
-    chars = string.ascii_letters + string.digits
-    return "".join(random.choices(chars, k=length))
-
-
-@router.get("/history/{class_name}", response_model=List[schemas.Response_History])
-async def get_history(
+@router.get("/setting/{class_name}", response_model=schemas.Response_Setting)
+async def get_setting(
     class_name: str,
     db: AsyncSession = Depends(get_db),
     authorization: HTTPAuthorizationCredentials = Depends(auth.get_current_user),
@@ -31,7 +24,7 @@ async def get_history(
             detail="You can't access this endpoint.",
         )
     else:
-        response = await history_crud.get_all_history(db=db, class_name=class_name)
+        response = await setting_crud.get_setting(db=db, class_name=class_name)
         if not response:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -40,12 +33,11 @@ async def get_history(
         return response
 
 
-@router.post("/history/add/{class_name}", response_model=schemas.HistoryAdd)
-async def add_history(
+@router.post("/setting/set/{class_name}", response_model=schemas.Setting)
+async def set_setting(
     class_name: str,
-    total: int,
-    change: int,
-    product: str,
+    goal: int,
+    reserve: int,
     db: AsyncSession = Depends(get_db),
     authorization: HTTPAuthorizationCredentials = Depends(auth.get_current_user),
 ):
@@ -56,7 +48,5 @@ async def add_history(
             detail="You can't access this endpoint.",
         )
     else:
-        await history_crud.add_order(
-            generate_payment_id(), class_name, total, change, product, db
-        )
+        await setting_crud.set_settings(class_name, goal, reserve, db)
         raise HTTPException(status_code=status.HTTP_200_OK, detail="Recorded")

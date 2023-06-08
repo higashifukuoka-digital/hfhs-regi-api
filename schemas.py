@@ -30,6 +30,23 @@ class Response_History(BaseModel):
     class Config:
         orm_mode = True
 
+class Setting(BaseModel):
+    class_name: str = Field(None, description="クラス名", example="2年1組")
+    goal: int = Field(None, description="目標金額", example=200)
+    reserve: int = Field(None, description="準備金", example=10000000)
+
+    class Config:
+        orm_mode = True
+
+class Response_Setting(BaseModel):
+    class_name: str
+    goal: int
+    reserve: int
+
+    class Config:
+        orm_mode = True
+
+
 
 class HistoryAdd(BaseModel):
     class_name: str = Field(None, description="クラス名", example="2年1組")

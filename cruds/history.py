@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.engine import Result
-from sqlalchemy import select
+from sqlalchemy import func, select
 from typing import List
 import models
 

@@ -1,11 +1,8 @@
-import datetime
+from datetime import datetime
 import random
-import time
 from sqlalchemy import INTEGER, TIMESTAMP, Column, String, func
 from db import Base
-from datetime import datetime
 import pytz
-import random
 import string
 
 jst = pytz.timezone("Asia/Tokyo")
@@ -25,6 +22,23 @@ class User(Base):
     user_role = Column(String(20))
 
 
+class Setting(Base):
+    __tablename__ = "setting"
+
+    class_name = Column(String(10), primary_key=True)
+    goal = Column(INTEGER)
+    reserve = Column(INTEGER)
+
+
+class GetAllSetting(Setting):
+    class_name: str
+    goal: int
+    reserve: int
+
+    class Config:
+        orm_mode = True
+
+
 class History(Base):
     now = datetime.now(jst)
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
@@ -41,6 +55,7 @@ class History(Base):
     change = Column(INTEGER)
     product = Column(String(255))
 
+
 class Get_History_all(History):
     paid_class: str
     timestamp: str
@@ -48,5 +63,5 @@ class Get_History_all(History):
     change: str
     product: str
 
-    class Config():
+    class Config:
         orm_mode = True
