@@ -36,7 +36,7 @@ async def get_current_user(token: str = Depends(key_scheme)) -> dict:
     try:
         payload = json.loads(decode_jwe(str(token.credentials)))
         email: str = payload.get("email")
-        if not "higashifukuoka.net" in email:
+        if (not "higashifukuoka.net" in email or email == "hfhs.digitalp@gmail.com"):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="You don't have permission to access.",
