@@ -38,6 +38,7 @@ async def set_setting(
     class_name: str,
     goal: int,
     reserve: int,
+    additionalreserve: int,
     db: AsyncSession = Depends(get_db),
     authorization: HTTPAuthorizationCredentials = Depends(auth.get_current_user),
 ):
@@ -48,5 +49,7 @@ async def set_setting(
             detail="You can't access this endpoint.",
         )
     else:
-        await setting_crud.set_settings(class_name, goal, reserve, db)
+        await setting_crud.set_settings(
+            class_name, goal, reserve, additionalreserve, db
+        )
         raise HTTPException(status_code=status.HTTP_200_OK, detail="Recorded")

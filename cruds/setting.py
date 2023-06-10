@@ -22,15 +22,27 @@ async def set_settings(
     class_name: str,
     goal: int,
     reserve: int,
+    additionalreserve: int,
     db: AsyncSession,
 ):
     model = models.Setting
-    existing_instance = await db.execute(select(model).where(model.class_name == class_name))
+    existing_instance = await db.execute(
+        select(model).where(model.class_name == class_name)
+    )
     existing_instance = existing_instance.scalars().first()
     if existing_instance:
-        await db.execute(update(model).where(model.class_name == class_name).values(goal=goal, reserve=reserve))
+        await db.execute(
+            update(model)
+            .where(model.class_name == class_name)
+            .values(goal=goal, reserve=reserve, additionalreserve=additionalreserve)
+        )
     else:
-        new_instance = model(class_name=class_name, goal=goal, reserve=reserve)
+        new_instance = model(
+            class_name=class_name,
+            goal=goal,
+            reserve=reserve,
+            additional=additionalreserve,
+        )
         db.add(new_instance)
     await db.commit()
     if existing_instance:

@@ -28,6 +28,7 @@ class Setting(Base):
     class_name = Column(String(10), primary_key=True)
     goal = Column(INTEGER)
     reserve = Column(INTEGER)
+    additionalreserve = Column(INTEGER)
 
 
 class GetAllSetting(Setting):
