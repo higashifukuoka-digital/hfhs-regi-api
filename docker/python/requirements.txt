@@ -4,7 +4,6 @@ passlib
 PyMySQL
 pyjwt
 python-multipart
-uvicorn
 SQLAlchemy
 werkzeug
 psycopg2
