@@ -17,3 +17,4 @@ aiomysql
 pytz
 uvicorn[standard]
 python-jose
+pydantic-settings
