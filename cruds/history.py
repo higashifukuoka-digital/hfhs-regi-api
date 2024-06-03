@@ -4,15 +4,11 @@ from sqlalchemy import select
 from typing import List
 import models
 
-
-async def get_all_history(db: AsyncSession, class_name: str) -> List[str]:
-    stmt = select(
-        models.GetHistoryAll,
-    ).where(models.History.paid_class == class_name)
+async def get_all_history(db: AsyncSession, class_name: str) -> List[models.GetAllHistory]:
+    stmt = select(models.History).where(models.History.paid_class == class_name)
     result: Result = await db.execute(stmt)
-    result = result.all()
-    return [record[0].__dict__ for record in result]
-
+    result = result.scalars().all()
+    return [models.GetAllHistory.from_orm(record) for record in result]
 
 async def add_order(
     payment_id: str,

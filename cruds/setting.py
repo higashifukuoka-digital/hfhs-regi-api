@@ -4,20 +4,17 @@ from sqlalchemy import select, update
 from typing import Optional
 import models
 
-
 async def get_setting(db: AsyncSession, class_name: str) -> Optional[models.Setting]:
     stmt = select(models.Setting).where(models.Setting.class_name == class_name)
     result: Result = await db.execute(stmt)
     setting: Optional[models.Setting] = result.scalars().first()
     return setting
 
-
 async def find_setting(db: AsyncSession, class_name: str) -> Optional[models.Setting]:
     stmt = select(models.Setting).where(models.Setting.class_name == class_name)
     result: Result = await db.execute(stmt)
     setting: Optional[models.Setting] = result.scalars().first()
     return setting
-
 
 async def set_settings(
     class_name: str,

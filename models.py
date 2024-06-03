@@ -9,11 +9,9 @@ import string
 Base = declarative_base()
 jst = pytz.timezone("Asia/Tokyo")
 
-
 def generate_payment_id(length=16):
     chars = string.ascii_letters + string.digits
     return "".join(random.choices(chars, k=length))
-
 
 class User(Base):
     __tablename__ = "users"
@@ -23,7 +21,6 @@ class User(Base):
     user_class: Mapped[str] = mapped_column(String(20))
     user_role: Mapped[str] = mapped_column(String(20))
 
-
 class Setting(Base):
     __tablename__ = "setting"
 
@@ -31,7 +28,6 @@ class Setting(Base):
     goal: Mapped[int] = mapped_column(INTEGER)
     reserve: Mapped[int] = mapped_column(INTEGER)
     additionalreserve: Mapped[int] = mapped_column(INTEGER)
-
 
 class History(Base):
     now = datetime.now(jst)
@@ -45,7 +41,6 @@ class History(Base):
     change: Mapped[int] = mapped_column(INTEGER)
     product: Mapped[str] = mapped_column(String(255))
 
-
 class GetAllSetting(BaseModel):
     class_name: str
     goal: int
@@ -54,9 +49,9 @@ class GetAllSetting(BaseModel):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
-
-class GetHistoryAll(BaseModel):
+class GetAllHistory(BaseModel):
     payment_id: str
     paid_class: str
     timestamp: datetime
@@ -66,3 +61,4 @@ class GetHistoryAll(BaseModel):
 
     class Config:
         orm_mode = True
+        from_attributes = True
