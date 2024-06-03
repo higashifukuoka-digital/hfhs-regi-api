@@ -1,13 +1,13 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.engine import Result
-from sqlalchemy import func, select
+from sqlalchemy import select
 from typing import List
 import models
 
 
 async def get_all_history(db: AsyncSession, class_name: str) -> List[str]:
     stmt = select(
-        models.Get_History_all,
+        models.GetHistoryAll,
     ).where(models.History.paid_class == class_name)
     result: Result = await db.execute(stmt)
     result = result.all()
